@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const db = require("./config/keys").mongoURI
 const users = require("./routes/api/users");
 const lists = require("./routes/api/lists");
+const tasks = require("./routes/api/tasks");
 const bodyParser = require('body-parser');
 // const User = require('./models/User');
 const passport = require('passport')
@@ -36,6 +37,7 @@ require('./config/passport')(passport)
 
 app.use("/api/users", users);
 app.use("/api/lists", lists);
+app.use("/api/tasks", tasks);
 
 const port = process.env.PORT || 5000;
 
