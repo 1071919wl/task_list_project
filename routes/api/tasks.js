@@ -100,7 +100,7 @@ router.patch("/:id", passport.authenticate('jwt',{session:false}), async (req, r
 
 
 
-//deleting a question
+//deleting a task
 router.delete("/:id", passport.authenticate('jwt',{session:false}), async (req, res) => {
 
     const task = await Task.findOne({ _id: req.params.id })
@@ -177,32 +177,32 @@ router.post("/:id/comments", passport.authenticate('jwt',{session:false}), async
     // }
 })
 
-// router.delete("/:questionId/responses/:responseId", passport.authenticate('jwt',{session:false}), async (req, res) => {
-//     let question = await Question.findById(req.params.questionId);
-//     let response = await question.responses.id(req.params.responseId)
-//     let user = await User.findById(response.user)
+router.delete("/:id/comments/:commentId", passport.authenticate('jwt',{session:false}), async (req, res) => {
+    let task = await Task.findById(req.params.id);
+    let comment = await task.comments.id(req.params.commentId)
+    // let user = await User.findById(response.user)
 
-//     if(question && response) {
+    if(task && comment) {
 
-//         if (`${response.user}` === req.user.id){
+        // if (`${response.user}` === req.user.id){
        
-//             question.responses.id(req.params.responseId).remove();
-//             question.save(function (err) {
-//                 res.json(response)
-//             })
+            task.comments.id(req.params.commentId).remove();
+            task.save(function (err) {
+                res.json(comment)
+            })
 
-//             let questionIdx = user.questions.indexOf(question._id)
-//             user.questions.splice(questionIdx, 1)
-//             await user.save()
+            // let questionIdx = user.questions.indexOf(question._id)
+            // user.questions.splice(questionIdx, 1)
+            // await user.save()
             
-//         } else{
-//             res.status(404).json('You can only delete your own responses.')
-//         }
+        // } else{
+        //     res.status(404).json('You can only delete your own responses.')
+        // }
         
-//     } else {
-//         res.json("question and/or response does not exist.")
-//     }
-// })
+    } else {
+        res.json("question and/or response does not exist.")
+    }
+})
 
 module.exports = router;
 
