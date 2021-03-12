@@ -34,7 +34,7 @@ const SignupForm = (props) => {
 
                 <div className='left_login'>
                     <h2 className='login_logo'>Trustero</h2>
-                    <h2 className='sub_title'>Sign up</h2>
+                    <h2 className='sub_title'>Register</h2>
                     <p>Sign up with a username.</p>
                     
                     <form onSubmit={sendMessage} className='login_form_box'>
