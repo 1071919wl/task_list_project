@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// const CommentSchema = require('./Comment');
+const List = require('./List')
 
 const CommentSchema = new Schema({
     comment: {
@@ -14,6 +14,11 @@ const CommentSchema = new Schema({
 
 
 const TaskSchema = new Schema({
+    list: {
+        type: Schema.Types.ObjectId,
+        ref: 'List',
+        required: true
+    },
     task: {
         type: String,
         required: true

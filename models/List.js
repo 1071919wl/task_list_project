@@ -1,13 +1,22 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// const TaskSchema = require('./Task');
+const Task = require('./Task');
+const User = require('./User');
 
 const ListSchema = new Schema({
+    user:{
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        require: true
+    },
     list: {
         type: String,
         required: true
     },
-    // tasks: [TaskSchema]
+    tasks: [{
+        type: Schema.Types.ObjectId,
+        ref: Task
+    }],
 },
     {
         timestamps: true

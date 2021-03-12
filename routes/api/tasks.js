@@ -4,24 +4,14 @@ const passport = require("passport");
 // const validateQuestionInput = require('../../validation/question');
 // const validateResponse = require('../../validation/response')
 const Task = require('../../models/Task');
+const List = require('../../models/List');
 const User = require('../../models/User');
 
-// router.get('/test', (req, res) => {
-//     res.json({ msg: "This is the list route" })
-// })
 
 //retreiving all the lists
 router.get('/',(req,res) => {
     
     Task.find()
-    // .populate('user')
-    // .populate({
-    //     path: 'responses',
-    //     populate: {
-    //         path: 'user',
-    //         model: 'User'
-    //     }
-    // })
     .sort({timestamps:-1})
     .then(tasks => {res.json(tasks)})
     .catch(err => res.status(404).json(err));
@@ -30,14 +20,6 @@ router.get('/',(req,res) => {
 //retreiving one task
 router.get('/:id',(req,res)=>{
     Task.findById(req.params.id)
-    // .populate({
-    //     path: 'responses',
-    //     populate: {
-    //         path: 'user',
-    //         model: 'User'
-    //     }
-    // })
-    
     .then(task => res.json(task))
     .catch(err => res.status(404).json("task not found"))
 })
@@ -46,17 +28,19 @@ router.get('/:id',(req,res)=>{
 
 //posting tasks
 router.post('/', passport.authenticate('jwt',{session:false}), async (req,res) =>{
-        //check validation
-        // const {errors, isValid} = validateQuestionInput(req.body);
-        //  if (!isValid) {
-        //      return res.status(400).json(errors);
-        //  }
-              
         const newTask = new Task({
+            list: req.body.list,
             task: req.body.task
         });
         
-        newTask.save().then(task => res.json(task))
+        newTask.save().then(task => {
+            List.findById(req.body.list)
+                .then(list => {
+                    list.tasks.push(task.id);
+                    list.save();
+                });
+            return res.json(task) 
+        }) 
         
       }
     
@@ -66,28 +50,13 @@ router.post('/', passport.authenticate('jwt',{session:false}), async (req,res) =
 router.patch("/:id", passport.authenticate('jwt',{session:false}), async (req, res) => {
     try {
         let task = await Task.findById(req.params.id);
-            // .populate('user')
-            // .populate({
-            //     path: 'responses',
-            //     populate: {
-            //         path: 'user',
-            //         model: 'User'
-            //     }
-            // })
 
-        // if(req.user.id ===  `${question.user._id}`){
-        
             if (req.body.task) {
                 task.task = req.body.task
             }
             
             await task.save()
             res.send(task)
-            
-        // }else {
-        // res.status(404).json({
-        //     error: 'Incorrect user'
-        // })
 
 	} catch(err){
         res.status(404).json({
@@ -104,32 +73,9 @@ router.delete("/:id", passport.authenticate('jwt',{session:false}), async (req, 
     const task = await Task.findOne({ _id: req.params.id })
 
     if(task) {
-        // if (`${question.user}` === req.user.id){
             Task.findByIdAndDelete(req.params.id)
-            // .then(  async () => {
-
-            //     let users = []; 
-
-            //     users.push(question.user)
-
-            //     question.responses.forEach(response => {
-            //         users.push(response.user)
-            //     })
-
-            //     users.forEach(async user => {
-            //         let questionUser = await User.findById(user._id)
-            //         let questionIdx = questionUser.questions.indexOf(question._id)
-            //         questionUser.questions.splice(questionIdx, 1)
-            //         await questionUser.save()
-            //     } )
-
-            // }
-            // )
             .then(() => res.json(task))
             .catch(err => res.status(404).json(err))
-        // } else{
-        //     res.status(404).json({error: 'Incorrect user'})
-        // }
     } else {
         res.json("task not found")
     }

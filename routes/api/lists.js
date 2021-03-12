@@ -4,46 +4,32 @@ const passport = require("passport");
 // const validateQuestionInput = require('../../validation/question');
 // const validateResponse = require('../../validation/response')
 const List = require('../../models/List');
+const Task = require('../../models/Task');
 const User = require('../../models/User');
 
-// router.get('/test', (req, res) => {
-//     res.json({ msg: "This is the list route" })
-// })
 
 //retreiving all the lists
 router.get('/',(req,res) => {
-    
     List.find()
-    // .populate('user')
-    // .populate({
-    //     path: 'responses',
-    //     populate: {
-    //         path: 'user',
-    //         model: 'User'
-    //     }
-    // })
+    .populate('tasks')
     .sort({timestamps:-1})
     .then(lists => {res.json(lists)})
     .catch(err => res.status(404).json(err));
 });
 
 
+
 //posting lists
 router.post('/', passport.authenticate('jwt',{session:false}), async (req,res) =>{
-        //check validation
-        // const {errors, isValid} = validateQuestionInput(req.body);
-        //  if (!isValid) {
-        //      return res.status(400).json(errors);
-        //  }
               
-        const newList = new List({
-            list: req.body.list
-        });
-        
-        newList.save().then(list => res.json(list))
-        
-      }
+    const newList = new List({
+        user: req.body.user,
+        list: req.body.list
+    });
     
+    newList.save().then(list => res.json(list))
+        
+    }  
 );
 
 
@@ -52,16 +38,6 @@ router.post('/', passport.authenticate('jwt',{session:false}), async (req,res) =
 router.patch("/:id", passport.authenticate('jwt',{session:false}), async (req, res) => {
     try {
         let list = await List.findById(req.params.id);
-            // .populate('user')
-            // .populate({
-            //     path: 'responses',
-            //     populate: {
-            //         path: 'user',
-            //         model: 'User'
-            //     }
-            // })
-
-        // if(req.user.id ===  `${question.user._id}`){
         
             if (req.body.list) {
                 list.list = req.body.list
@@ -69,11 +45,6 @@ router.patch("/:id", passport.authenticate('jwt',{session:false}), async (req, r
             
             await list.save()
             res.send(list)
-            
-        // }else {
-        // res.status(404).json({
-        //     error: 'Incorrect user'
-        // })
 
 	} catch(err){
         res.status(404).json({
@@ -90,32 +61,16 @@ router.delete("/:id", passport.authenticate('jwt',{session:false}), async (req, 
     const list = await List.findOne({ _id: req.params.id })
 
     if(list) {
-        // if (`${question.user}` === req.user.id){
+       
+            Task.deleteMany({ list: req.params.id }).then(function(){ 
+                console.log("Data deleted"); // Success 
+            }).catch(function(error){ 
+                console.log(error); // Failure 
+            }); 
+
             List.findByIdAndDelete(req.params.id)
-            // .then(  async () => {
-
-            //     let users = []; 
-
-            //     users.push(question.user)
-
-            //     question.responses.forEach(response => {
-            //         users.push(response.user)
-            //     })
-
-            //     users.forEach(async user => {
-            //         let questionUser = await User.findById(user._id)
-            //         let questionIdx = questionUser.questions.indexOf(question._id)
-            //         questionUser.questions.splice(questionIdx, 1)
-            //         await questionUser.save()
-            //     } )
-
-            // }
-            // )
             .then(() => res.json(list))
             .catch(err => res.status(404).json(err))
-        // } else{
-        //     res.status(404).json({error: 'Incorrect user'})
-        // }
     } else {
         res.json("list not found")
     }
