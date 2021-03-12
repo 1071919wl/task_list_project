@@ -4,9 +4,11 @@ export const fetchLists = () => {
     return axios.get("/api/lists")
 };
 
-// export const fetchOrder = (orderId) => {
-//     return axios.get(`/api/orders/${orderId}`)
-// }
+//test
+export const fetchList = (userId) => {
+    return axios.get(`/api/lists/${userId}`)
+}
+//test
 
 export const postList = (newList) => {
     return axios.post("/api/lists", newList)

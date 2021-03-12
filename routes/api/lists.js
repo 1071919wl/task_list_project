@@ -17,6 +17,24 @@ router.get('/',(req,res) => {
     .catch(err => res.status(404).json(err));
 });
 
+//!retreive a list from user
+router.get('/:id',(req,res) => {
+    List.find()
+        .populate('tasks')
+        .sort({timestamps:-1})
+        .then(lists => {
+            const listArr = [];
+            lists.forEach(list => {
+                // console.log('list',typeof list.user.toString())
+                // console.log('req.body.user',typeof req.params.id)
+                // console.log( list.user.toString() === req.params.id)
+                if(req.params.id === list.user.toString()){
+                    listArr.push(list);
+                }
+            })
+            res.json(listArr)
+        })
+});
 
 
 //posting lists

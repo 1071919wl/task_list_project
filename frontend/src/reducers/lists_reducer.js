@@ -10,8 +10,9 @@ const ListsReducer = (state={}, action) =>  {
         case RECEIVE_LISTS:
             return action.lists;
         case RECEIVE_LIST:
-            newState[action.list._id] = action.list
-            return newState
+            // newState['hello'] = action.list
+            return action.list
+            // return newState
         case REMOVE_LIST: 
             let listId = action.list._id
             delete newState[listId]
