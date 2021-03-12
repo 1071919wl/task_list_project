@@ -84,7 +84,7 @@ router.patch("/:id", passport.authenticate('jwt',{session:false}), async (req, r
 
 
 
-//deleting a question
+//deleting a list
 router.delete("/:id", passport.authenticate('jwt',{session:false}), async (req, res) => {
 
     const list = await List.findOne({ _id: req.params.id })

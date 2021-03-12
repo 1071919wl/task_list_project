@@ -62,9 +62,7 @@ router.post('/', passport.authenticate('jwt',{session:false}), async (req,res) =
     
 );
 
-
-
-
+//updating tasks
 router.patch("/:id", passport.authenticate('jwt',{session:false}), async (req, res) => {
     try {
         let task = await Task.findById(req.params.id);
@@ -139,68 +137,54 @@ router.delete("/:id", passport.authenticate('jwt',{session:false}), async (req, 
 
 
 //! comments
+//creating a comment to a task
 router.post("/:id/comments", passport.authenticate('jwt',{session:false}), async (req, res) => {
     
     let task = await Task.findById(req.params.id)
 
-    // const { errors, isValid } = validateResponse(req.body);
-
     if (task) {
-
-        // if (!isValid) {
-
-        //     return res.status(400).json(errors)
-
-        // } else {
-
-
             task.comments.push(Object.assign(req.body, {user: req.user.id}))
             task.save( function (err) {
                 if (!err) res.json(task)
             })
-
-            // let user = await User.findById(req.user.id)
-
-            // let existingID = user.questions.find(id => id.toString() === question._id.toString())
-            
-            // if(!existingID) {
-            //     user.comments.push(question._id)
-            //     user.save()
-            // } else {
-            //     null
-            // }
-
         }
-
-    // } else {
-    //     res.json("question does not exist.")
-    // }
 })
 
+//changing a comment of a task
+router.patch("/:id/comments/:commentId", passport.authenticate('jwt',{session:false}), async (req, res) => {
+    try {
+        let task = await Task.findById(req.params.id);
+        let comment = await task.comments.id(req.params.commentId)
+        
+            if (req.body.comment) {
+                comment.comment = req.body.comment
+            }
+             
+            await task.save()
+            res.send(comment)
+
+	} catch(err){
+        res.status(404).json({
+            error: "Comment doesn't exist!"
+        })
+    }
+})
+
+
+//deleting a comment from a task
 router.delete("/:id/comments/:commentId", passport.authenticate('jwt',{session:false}), async (req, res) => {
     let task = await Task.findById(req.params.id);
     let comment = await task.comments.id(req.params.commentId)
-    // let user = await User.findById(response.user)
 
     if(task && comment) {
-
-        // if (`${response.user}` === req.user.id){
        
-            task.comments.id(req.params.commentId).remove();
-            task.save(function (err) {
-                res.json(comment)
-            })
-
-            // let questionIdx = user.questions.indexOf(question._id)
-            // user.questions.splice(questionIdx, 1)
-            // await user.save()
-            
-        // } else{
-        //     res.status(404).json('You can only delete your own responses.')
-        // }
+        task.comments.id(req.params.commentId).remove();
+        task.save(function (err) {
+            res.json(comment)
+        })
         
     } else {
-        res.json("question and/or response does not exist.")
+        res.json("task and/or comment does not exist.")
     }
 })
 
