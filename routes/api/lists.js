@@ -17,7 +17,8 @@ router.get('/',(req,res) => {
     .catch(err => res.status(404).json(err));
 });
 
-//!retreive a list from user
+
+//retreive a list from user
 router.get('/:id',(req,res) => {
     List.find()
         .populate('tasks')
@@ -44,13 +45,9 @@ router.post('/', passport.authenticate('jwt',{session:false}), async (req,res) =
         user: req.body.user,
         list: req.body.list
     });
-    
     newList.save().then(list => res.json(list))
-        
     }  
 );
-
-
 
 
 router.patch("/:id", passport.authenticate('jwt',{session:false}), async (req, res) => {

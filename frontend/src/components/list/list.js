@@ -1,22 +1,25 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import NavBar from '../nav/navbar';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchLists, postList, fetchList, updateList, deleteList } from '../../actions/list_actions';
+import { postList, fetchList, updateList, deleteList } from '../../actions/list_actions';
 
 
 const List = (props) => {
 
     const [list, setList] = useState('');
+    const didUpdate = useRef(false);
     const allLists = useSelector(state => Object.values(state.entities.lists))
     const currentUser = useSelector(state => state.entities.currentUser)
     const dispatch = useDispatch()
 
+    //componentDidMount
     useEffect(() => {
-        // dispatch(fetchLists())
         dispatch(fetchList(currentUser.id))
+        didUpdate.current=false;
     }, []);
 
+    //create list
     const submitList = (e) => {
         e.preventDefault();
 
@@ -29,16 +32,28 @@ const List = (props) => {
             alert('Please provide a List title');
         }else{
             dispatch(postList(newList)).then((res) => {
-                dispatch(fetchLists());
-
-            })
+                dispatch(fetchList(currentUser.id));
+                setList('');
+            });
         }
-
     }
+
+    //delete list
+    const removeList = (listId) => {
+        dispatch(deleteList(listId));
+        didUpdate.current = true;
+    }
+
+    //deleting a list and rerendering
+    useEffect(() => {
+        if(didUpdate.current){
+            dispatch(fetchList(currentUser.id));
+            didUpdate.current=false
+        }
+    })
 
     return(
         <div className='listContainer'>
-
             <NavBar />
             <div>
                 <h1>Add a List:</h1>
@@ -52,9 +67,11 @@ const List = (props) => {
             {allLists.length ? 
                 <div>
                     <ul>
-                        {allLists.map((list) => (
-                            <li key={list._id}>
+                        {allLists.map((list, i) => (
+                            <li key={i}>
                                 {list.list}
+                                {/* <input type='submit' value='Edit'  /> */}
+                                <input type='submit' value='Delete' onClick={() => removeList(list._id)} />
                             </li>
                         ))} 
                     </ul>
