@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react';
 import NavBar from '../nav/navbar';
+import '../../assets/stylesheets/list.css';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { postList, fetchList, updateList, deleteList } from '../../actions/list_actions';
 
-import '../../assets/stylesheets/list.css';
 
 
 const List = (props) => {
@@ -21,7 +21,7 @@ const List = (props) => {
     //componentDidMount
     useEffect(() => {
         dispatch(fetchList(currentUser.id))
-        didUpdate.current=false;
+        didUpdate.current = false;
     }, []);
 
     //create list

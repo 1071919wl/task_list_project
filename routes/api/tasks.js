@@ -8,7 +8,7 @@ const List = require('../../models/List');
 const User = require('../../models/User');
 
 
-//retreiving all the lists
+//retreiving all the tasks
 router.get('/',(req,res) => {
     
     Task.find()

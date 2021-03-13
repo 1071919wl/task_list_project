@@ -46,13 +46,11 @@ const removeList = (list) => {
 
 //thunk actions
 
-//!test
 export const fetchList = (userId) => (dispatch) => {
     return ListsAPIUtil.fetchList(userId)
         .then(res =>  dispatch(receiveList(res.data)))
         // .catch(err => (dispatch(receiveQuestionErrors(err))))
 }
-//!test
 
 export const fetchLists = () => dispatch => {
     return ListsAPIUtil.fetchLists()
