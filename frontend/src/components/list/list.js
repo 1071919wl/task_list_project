@@ -4,12 +4,17 @@ import NavBar from '../nav/navbar';
 import { useSelector, useDispatch } from 'react-redux';
 import { postList, fetchList, updateList, deleteList } from '../../actions/list_actions';
 
+import '../../assets/stylesheets/list.css';
+
 
 const List = (props) => {
 
     const [list, setList] = useState('');
+    // const [edit, setEdit] = useState('');
+    // const [editSec, setEditSec] = useState(false);
     const didUpdate = useRef(false);
-    const allLists = useSelector(state => Object.values(state.entities.lists))
+    // const allLists = useSelector(state => Object.values(state.entities.lists))
+    const allLists = useSelector(state => state.entities.lists);
     const currentUser = useSelector(state => state.entities.currentUser)
     const dispatch = useDispatch()
 
@@ -44,11 +49,12 @@ const List = (props) => {
         didUpdate.current = true;
     }
 
+
     //deleting a list and rerendering
     useEffect(() => {
         if(didUpdate.current){
             dispatch(fetchList(currentUser.id));
-            didUpdate.current=false
+            didUpdate.current=false;
         }
     })
 
@@ -56,22 +62,33 @@ const List = (props) => {
         <div className='listContainer'>
             <NavBar />
             <div>
-                <h1>Add a List:</h1>
-                <form onSubmit={submitList}>
-                    <input type='text' value={list} onChange={e => setList(e.target.value)} />
+                <form onSubmit={submitList} className='listForm'>
                     <div>
-                        <input type='submit' value='Save'/>
+                        <label className='listInput'>
+                            Add a List:
+                            <input type='text' value={list} onChange={e => setList(e.target.value)} />
+                        </label>
+                    </div>
+                    <div>
+                        <label className="ques_button_err">
+                            <input type='submit' className="submit-question-button" value='Save'/>
+                        </label>
                     </div>
                 </form>
+
+
+
             </div>
             {allLists.length ? 
                 <div>
-                    <ul>
+                    <ul className='allListContainer'>
                         {allLists.map((list, i) => (
-                            <li key={i}>
-                                {list.list}
-                                {/* <input type='submit' value='Edit'  /> */}
-                                <input type='submit' value='Delete' onClick={() => removeList(list._id)} />
+                            <li key={i} className='listContainer'>
+                                <div className='listItem'>
+                                    {list.list}
+                                    {/* <input type='submit' value='Edit' onClick={setEditSec(true)} /> */}
+                                    <input type='submit' value='Delete' onClick={() => removeList(list._id)} />
+                                </div>
                             </li>
                         ))} 
                     </ul>

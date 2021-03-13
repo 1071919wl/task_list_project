@@ -19,6 +19,7 @@ span, article, footer, time, small {
   font-family: sans-serif;
 }
 
+
 ul {
   list-style: none;
 }
@@ -47,3 +48,4 @@ button,
 input[type="submit"] {
   cursor: pointer;
 }
+

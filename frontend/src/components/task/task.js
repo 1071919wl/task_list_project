@@ -5,7 +5,6 @@ const Task = (props) => {
 
     return(
         <div>
-            <NavBar />
             This is the task Page
         </div>
     )
