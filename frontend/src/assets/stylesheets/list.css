@@ -125,7 +125,17 @@
 .allListContainer{
     margin-top: 30px;
     display: flex;
-    justify-content:space-evenly;
+    overflow-x: auto;
+    /* margin-left: 30px;
+    margin-right: 30px; */
+    margin-left: auto;
+    margin-right: auto;
+    width: 75em;
+    flex-wrap: nowrap;
+    /* overflow: auto; */
+    
+
+    /* justify-content: center; */
 }
 
 .listContainer{
@@ -136,8 +146,14 @@
 .listItem{
     background-color: rgb(73, 135, 250);
     padding-bottom: 200px;
-    padding-left: 30px;
-    padding-right: 30px;
-    border-radius: 5px;;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    width: 380px;
+    /* overflow-x: scroll;
+    white-space:nowrap; */
     
 }
+

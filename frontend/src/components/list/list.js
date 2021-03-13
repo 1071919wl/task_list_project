@@ -85,9 +85,14 @@ const List = (props) => {
                         {allLists.map((list, i) => (
                             <li key={i} className='listContainer'>
                                 <div className='listItem'>
-                                    {list.list}
+                                    <div>
+                                        {list.list}
+                                    </div>
                                     {/* <input type='submit' value='Edit' onClick={setEditSec(true)} /> */}
-                                    <input type='submit' value='Delete' onClick={() => removeList(list._id)} />
+                                    <div>
+                                        <input type='submit' value='Edit' onClick={() => console.log('edit')} />
+                                        <input type='submit' value='Delete' onClick={() => removeList(list._id)} />
+                                    </div>
                                 </div>
                             </li>
                         ))} 
