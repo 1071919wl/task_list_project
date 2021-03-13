@@ -1,4 +1,4 @@
-import { RECEIVE_LISTS, RECEIVE_LIST, REMOVE_LIST } from "../actions/list_actions";
+import { RECEIVE_LISTS, RECEIVE_LIST, REMOVE_LIST, CLEAR_LISTS } from "../actions/list_actions";
 
 
 
@@ -17,6 +17,8 @@ const ListsReducer = (state={}, action) =>  {
             let listId = action.list._id
             delete newState[listId]
             return newState
+        case CLEAR_LISTS:
+            return [];    
         default:
             return state;
     }

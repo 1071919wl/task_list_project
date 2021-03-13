@@ -5,6 +5,7 @@ export const RECEIVE_LIST = "RECEIVE_LIST";
 export const REMOVE_LIST = "REMOVE_LIST";
 // export const RECEIVE_LIST_ERRORS = "RECEIVE_LIST_ERRORS"
 // export const REMOVE_LIST_ERRORS = "REMOVE_LIST_ERRORS";
+export const CLEAR_LISTS = 'CLEAR_LISTS';
 
 
 //action 
@@ -28,6 +29,12 @@ const removeList = (list) => {
     return {
         type: REMOVE_LIST,
         list
+    }
+}
+
+export const clearLists = () => {
+    return {
+        type: CLEAR_LISTS,
     }
 }
 

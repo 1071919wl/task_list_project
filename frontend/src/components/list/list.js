@@ -1,9 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react';
 import NavBar from '../nav/navbar';
+import TaskForm from '../task/task_form';
 import '../../assets/stylesheets/list.css';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { postList, fetchList, updateList, deleteList } from '../../actions/list_actions';
+import { postList, fetchList, updateList, deleteList, clearLists } from '../../actions/list_actions';
+
 
 
 
@@ -13,16 +15,20 @@ const List = (props) => {
     // const [edit, setEdit] = useState('');
     // const [editSec, setEditSec] = useState(false);
     const didUpdate = useRef(false);
-    // const allLists = useSelector(state => Object.values(state.entities.lists))
     const allLists = useSelector(state => state.entities.lists);
     const currentUser = useSelector(state => state.entities.currentUser)
     const dispatch = useDispatch()
 
-    //componentDidMount
+    //componentDidMount list
     useEffect(() => {
         dispatch(fetchList(currentUser.id))
         didUpdate.current = false;
     }, []);
+
+    // compoentWillUnmount list
+    useEffect(() => {
+        dispatch(clearLists())
+    },[]);
 
     //create list
     const submitList = (e) => {
@@ -43,7 +49,7 @@ const List = (props) => {
         }
     }
 
-    //delete list
+    //deleting a  list
     const removeList = (listId) => {
         dispatch(deleteList(listId));
         didUpdate.current = true;
@@ -94,6 +100,11 @@ const List = (props) => {
                                         <input type='submit' value='Delete' onClick={() => removeList(list._id)} />
                                     </div>
                                 </div>
+                                
+                                <div>
+                                    <TaskForm list={list} />
+                                </div>
+
                             </li>
                         ))} 
                     </ul>
