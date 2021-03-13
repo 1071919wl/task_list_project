@@ -30,7 +30,8 @@ router.get('/:id',(req,res)=>{
 router.post('/', passport.authenticate('jwt',{session:false}), async (req,res) =>{
         const newTask = new Task({
             list: req.body.list,
-            task: req.body.task
+            task: req.body.task,
+            status: req.body.status
         });
         
         newTask.save().then(task => {
@@ -53,6 +54,10 @@ router.patch("/:id", passport.authenticate('jwt',{session:false}), async (req, r
 
             if (req.body.task) {
                 task.task = req.body.task
+            }
+
+            if (req.body.status) {
+                task.status = req.body.status
             }
             
             await task.save()

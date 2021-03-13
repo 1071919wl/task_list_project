@@ -16,8 +16,8 @@ const List = (props) => {
     // const [editSec, setEditSec] = useState(false);
     const didUpdate = useRef(false);
     const allLists = useSelector(state => state.entities.lists);
-    const currentUser = useSelector(state => state.entities.currentUser)
-    const dispatch = useDispatch()
+    const currentUser = useSelector(state => state.entities.currentUser);
+    const dispatch = useDispatch();
 
     //componentDidMount list
     useEffect(() => {

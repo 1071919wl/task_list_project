@@ -8,6 +8,8 @@ const TaskForm = (props) => {
 
     const [task, setTask] = useState('');
     const [description, setDescription] = useState('');
+    const [status, setStatus] = useState(false);
+    const dispatch = useDispatch();
 
     //create list
     const submitTask = (e) => {
@@ -15,18 +17,19 @@ const TaskForm = (props) => {
 
         let newTask = {
             list: props.list._id,
-            task: task
+            task: task,
+            status: status
         };
 
-        // if(task === ""){
-        //     alert('Please provide a Task title');
-        // }else{
-        //     dispatch(postTask(newTask)).then((res) => {
-        //         // dispatch(fetchList(currentUser.id));
-        //         setTask('');
-        //     });
-        // }
-        console.log(newTask);
+        if(task === ""){
+            alert('Task title and description are needed');
+        }else{
+            dispatch(postTask(newTask)).then((res) => {
+                // dispatch(fetchList(currentUser.id));
+                setTask('');
+                setDescription('');
+            });
+        }
     }
 
     return(
@@ -34,10 +37,10 @@ const TaskForm = (props) => {
             <form onSubmit={submitTask} className='taskForm'>
                 <div className='taskInputContainer'>
                     <label className='taskInput'>Task title:
-                        <input type='text' value={task} onChange={e => setTask(e.target.value)} />
+                        <input type='text' value={task} onChange={e => setTask(e.target.value)} className='task_input1' />
                     </label>
                     <label className='taskInput'>Description:
-                        <input type='text' value={description} onChange={e => setDescription(e.target.value)} />
+                        <input type='text' value={description} onChange={e => setDescription(e.target.value)} className='task_input2' />
                     </label>
                 </div>
                 <div>

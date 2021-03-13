@@ -27,3 +27,17 @@
     margin-top: 20px;
     padding: 10px; */
 }
+
+.task_input1{
+    background-color: rgb(255, 234, 209);
+    margin-left: 5px;
+    width: 350px;
+    font-size: 16px;
+}
+
+.task_input2 {
+    background-color: rgb(255, 234, 209);
+    margin-left: 5px;
+    width: 335px;
+    font-size: 16px;
+}
