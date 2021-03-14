@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { postTask } from '../../actions/task_actions';
-
+// import { fetchList } from '../../actions/list_actions';
 import '../../assets/stylesheets/task.css';
 
-const TaskForm = (props) => {
+const TaskForm = ({list, onChange}) => {
 
     const [task, setTask] = useState('');
     const [description, setDescription] = useState('');
@@ -16,18 +16,21 @@ const TaskForm = (props) => {
         e.preventDefault();
 
         let newTask = {
-            list: props.list._id,
+            list: list._id,
             task: task,
+            description: description,
             status: status
         };
 
-        if(task === ""){
+        
+        if(task === "" || description === ''){
             alert('Task title and description are needed');
         }else{
             dispatch(postTask(newTask)).then((res) => {
-                // dispatch(fetchList(currentUser.id));
+                onChange();
                 setTask('');
                 setDescription('');
+
             });
         }
     }

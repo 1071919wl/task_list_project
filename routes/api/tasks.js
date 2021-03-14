@@ -31,6 +31,7 @@ router.post('/', passport.authenticate('jwt',{session:false}), async (req,res) =
         const newTask = new Task({
             list: req.body.list,
             task: req.body.task,
+            description: req.body.description,
             status: req.body.status
         });
         

@@ -146,17 +146,54 @@
 }
 
 .listItem{
-    background-color: rgb(73, 135, 250);
+    background-color: rgb(40, 107, 231);
     /* padding-bottom: 400px; */
     height: 34vw;
     margin-left: 15px;
     margin-right: 15px;
     border-radius: 5px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     width: 450px;
     /* overflow-x: scroll;
     white-space:nowrap; */
     
 }
 
+.listHeadContainer{
+    /* background-color: purple; */
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgray;
+}
+
+.taskContainer{
+    background-color: rgb(112, 189, 241);
+    overflow-y: auto;
+}
+
+.listIndvTitle{
+    color:white;
+    font-size: 25px;
+    padding: 5px;
+    margin-left: 5px;
+}
+
+.listBtn{
+    margin-left: 5px;
+}
+
+.listEditBtn,
+.listDeleteBtn {
+    color: white;
+    margin-right:5px;
+    margin-top:5px;
+}
+
+.taskIndvTitle{
+    padding: 10px;
+    font-size: 18px;
+}
+.taskIndvTitle:hover{
+    background-color: lightgray;
+}

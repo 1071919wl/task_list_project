@@ -7,28 +7,29 @@ import { useSelector, useDispatch } from 'react-redux';
 import { postList, fetchList, updateList, deleteList, clearLists } from '../../actions/list_actions';
 
 
-
-
 const List = (props) => {
 
     const [list, setList] = useState('');
-    // const [edit, setEdit] = useState('');
-    // const [editSec, setEditSec] = useState(false);
+    const [task, setTask] = useState(false);
+    //!! const taskContainer = userRef(inputRef.current.focus());
     const didUpdate = useRef(false);
     const allLists = useSelector(state => state.entities.lists);
     const currentUser = useSelector(state => state.entities.currentUser);
     const dispatch = useDispatch();
 
-    //componentDidMount list
+    //componentDidMount and componentDidUpdate
     useEffect(() => {
         dispatch(fetchList(currentUser.id))
         didUpdate.current = false;
-    }, []);
+        setTask(false);
+    }, [task]);
 
-    // compoentWillUnmount list
+
+    // componentWillUnmount list on logout
     useEffect(() => {
         dispatch(clearLists())
     },[]);
+
 
     //create list
     const submitList = (e) => {
@@ -49,20 +50,20 @@ const List = (props) => {
         }
     }
 
-    //deleting a  list
+    //deleting a list
     const removeList = (listId) => {
-        dispatch(deleteList(listId));
-        didUpdate.current = true;
+        dispatch(deleteList(listId)).then(()=>{
+            dispatch(fetchList(currentUser.id));
+        })
+
     }
 
-
-    //deleting a list and rerendering
-    useEffect(() => {
-        if(didUpdate.current){
-            dispatch(fetchList(currentUser.id));
-            didUpdate.current=false;
-        }
-    })
+    //!! const scrollToBottom = () => {
+    //     let elmnt = document.getElementById("end_contact");
+    //     elmnt.scrollIntoView({
+    //         behavior: 'smooth'
+    //     });
+    // };
 
     return(
         <div className='listContainer'>
@@ -88,21 +89,33 @@ const List = (props) => {
             {allLists.length ? 
                 <div>
                     <ul className='allListContainer'>
-                        {allLists.map((list, i) => (
-                            <li key={i} className='listContainer'>
+                        {allLists.map((list) => (
+                            <li key={list._id} className='listContainer'>
                                 <div className='listItem'>
-                                    <div>
-                                        {list.list}
+                                    <div className='listHeadContainer'>
+                                        <div className='listIndvTitle'>
+                                            {list.list}
+                                        </div>
+                                        {/* <input type='submit' value='Edit' onClick={setEditSec(true)} /> */}
+                                        <div className='listBtn'>
+                                            <input type='submit' value='Edit' className='listEditBtn' onClick={() => console.log('edit')} />
+                                            <input type='submit' value='Delete' className='listDeleteBtn' onClick={() => removeList(list._id)} />
+                                        </div>
                                     </div>
-                                    {/* <input type='submit' value='Edit' onClick={setEditSec(true)} /> */}
-                                    <div>
-                                        <input type='submit' value='Edit' onClick={() => console.log('edit')} />
-                                        <input type='submit' value='Delete' onClick={() => removeList(list._id)} />
+
+                                    <div className='taskContainer' useRef={taskScroll}>
+                                        {list.tasks.map((task) => {
+                                            return (
+                                                <div key={task._id} className='taskIndvTitle'>
+                                                    {task.task}
+                                                </div>
+                                            )
+                                        })}
                                     </div>
                                 </div>
                                 
                                 <div>
-                                    <TaskForm list={list} />
+                                    <TaskForm list={list} currentUser={currentUser} onChange={setTask}/>
                                 </div>
 
                             </li>

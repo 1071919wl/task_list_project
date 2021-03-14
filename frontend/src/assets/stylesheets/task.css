@@ -17,15 +17,21 @@
 .taskInput{
     background-color: rgb(253, 208, 153);
     border-radius: 5px;
-    /* margin-top: 20px; */
+
     padding: 10px;
 }
 
 .submitTaskButton{
-    background-color: yellow;
-    /* border-radius: 5px;
-    margin-top: 20px;
-    padding: 10px; */
+    background-color: rgb(33, 161, 155);
+    border-radius: 5px;
+    color: rgb(0, 0, 0);
+    padding: 8px;
+    font-size: 15px;
+}
+
+.submitTaskButton:hover{
+    background-color: rgb(22, 107, 103);
+    color:white;
 }
 
 .task_input1{
