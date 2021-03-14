@@ -199,3 +199,20 @@
 .taskIndvTitle:hover{
     background-color: lightgray;
 }
+
+.listIndivid{
+    display:flex;
+    justify-content: space-between;
+}
+
+.listIndivid:hover{
+    cursor: pointer;
+}
+
+.unfinish{
+    color:red;
+}
+
+.finish {
+    color: green;
+}

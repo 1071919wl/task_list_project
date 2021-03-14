@@ -13,7 +13,6 @@ const List = (props) => {
     const [list, setList] = useState('');
     const [task, setTask] = useState(false);
     const [taskModal, setTaskModal] = useState('');
-    //! const didUpdate = useRef(false);
     const allLists = useSelector(state => state.entities.lists);
     const currentUser = useSelector(state => state.entities.currentUser);
     const dispatch = useDispatch();
@@ -21,7 +20,6 @@ const List = (props) => {
     //componentDidMount and componentDidUpdate
     useEffect(() => {
         dispatch(fetchList(currentUser.id))
-        //! didUpdate.current = false;
         setTask(false);
     }, [task]);
 
@@ -116,7 +114,14 @@ const List = (props) => {
                                             return (
                                                 <div key={task._id} className='taskIndvTitle'>
                                                     <ModalContainer task={taskModal}/>
-                                                    <div onClick={() => taskModals(task)} >{task.task}</div>
+                                                    <div onClick={() => taskModals(task)} className='listIndivid'>
+                                                        <div>
+                                                            {task.task}
+                                                        </div>
+                                                        <div>
+                                                            {task.status ? <div className='finish'> &#10003; </div> : <div className='unfinish'>&#10007;</div>}
+                                                        </div>
+                                                    </div>
                                                     {/* <div ref={bottomRef} className="list-bottom"></div> */}
                                                 </div>
                                             )
