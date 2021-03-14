@@ -162,8 +162,8 @@
 
 .listHeadContainer{
     /* background-color: purple; */
-    display: flex;
-    justify-content: space-between;
+    /* display: flex;
+    justify-content: space-between; */
     border-bottom: 1px solid lightgray;
 }
 
@@ -192,6 +192,11 @@
     margin-top:5px;
 }
 
+.listAndBtn{
+    display:flex;
+    justify-content: space-between;
+    
+}
 .taskIndvTitle{
     padding: 10px;
     font-size: 18px;

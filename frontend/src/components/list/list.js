@@ -6,7 +6,7 @@ import ModalContainer from '../modal/modal_container';
 import '../../assets/stylesheets/list.css';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { postList, fetchList, updateList, deleteList, clearLists } from '../../actions/list_actions';
+import { postList, fetchList, deleteList, clearLists } from '../../actions/list_actions';
 import { openModal } from '../../actions/modal_actions';
 
 const List = (props) => {
@@ -14,7 +14,10 @@ const List = (props) => {
     const [list, setList] = useState('');
     const [task, setTask] = useState(false);
     const [taskModal, setTaskModal] = useState('');
-    const [editSec, setEditSec] = useState(false);
+    const [editSec, setEditSec] = useState('');
+    //!test
+    const [update, setUpdate] = useState(false);
+    //!test
     
     const allLists = useSelector(state => state.entities.lists);
     const currentUser = useSelector(state => state.entities.currentUser);
@@ -26,6 +29,12 @@ const List = (props) => {
         setTask(false);
     }, [task]);
 
+    //!test
+    // useEffect(() => {
+    //     dispatch(fetchList(currentUser.id));
+    //     setUpdate(false);
+    // },[update])
+    //!test
 
     // componentWillUnmount list on logout
     useEffect(() => {
@@ -69,9 +78,16 @@ const List = (props) => {
         // });
     };
 
+    //displaying task modal
     const taskModals = ( task ) => {
         setTaskModal(task);
         dispatch(openModal('task'))
+    }
+
+
+    //displaying list edit option
+    const listEditSec = ( list ) => {
+        setEditSec(list._id)
     }
 
     return(
@@ -102,20 +118,26 @@ const List = (props) => {
                             <li key={list._id} className='listContainer'>
                                 <div className='listItem'>
                                     <div className='listHeadContainer'>
-                                        {!editSec ?
-                                            <div className='listIndvTitle'>
-                                                {list.list}
+                                        <div>
+                                            {editSec === list._id ? 
+                                                <div>
+                                                    <ListEdit listId={editSec} setEditSec={setEditSec} setUpdate={setUpdate}/>
+                                                </div>
+                                            :
+                                            <div className='listAndBtn'>
+                                                <div className='listIndvTitle'>
+                                                    {list.list}
+                                                </div>
+                                                <div className='listBtn'>
+                                                    <div>
+                                                        <input type='submit' value='Edit' className='listEditBtn' onClick={() => listEditSec(list)} />
+                                                        <input type='submit' value='Delete' className='listDeleteBtn' onClick={() => removeList(list._id)} />
+                                                    </div>
+                                                </div>
                                             </div>
-                                        :
-                                            <ListEdit list={list} />
-                                        }
-                                        {/* <input type='submit' value='Edit' onClick={setEditSec(true)} /> */}
-                                        <div className='listBtn'>
-                                            <div>
-                                                <input type='submit' value='Edit' className='listEditBtn' onClick={() => setEditSec(true)} />
-                                                <input type='submit' value='Delete' className='listDeleteBtn' onClick={() => removeList(list._id)} />
-                                            </div>
+                                            }
                                         </div>
+
                                     </div>
 
                                     <div className='taskContainer' ref={bottomRef}>

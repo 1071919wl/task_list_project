@@ -27,7 +27,7 @@ const TaskForm = ({list, onChange, scrollToBottom}) => {
             alert('Task title and description are needed');
         }else{
             dispatch(postTask(newTask)).then((res) => {
-                onChange();
+                onChange(true);
                 setTask('');
                 setDescription('');
                 scrollToBottom();
