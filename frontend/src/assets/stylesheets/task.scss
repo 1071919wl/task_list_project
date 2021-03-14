@@ -1,0 +1,26 @@
+.taskTitleContainer{
+    font-size: 45px;
+    background-color: #008697;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Allura', cursive;
+    padding: 10px;
+}
+
+.descriptStatusContainer{
+    display:flex;
+    justify-content: space-between;
+    background-color: bisque;
+    padding: 20px;
+
+    .descriptionContainer{
+        display:flex;
+        flex-direction: column;
+    }
+
+    .toggleContainer{
+        display:flex;
+    }
+    
+}

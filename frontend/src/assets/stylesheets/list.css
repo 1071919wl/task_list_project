@@ -221,3 +221,12 @@
 .finish {
     color: green;
 }
+
+.listUpdateContainer{
+    display:flex;
+    justify-content:space-between;
+}
+.listUpdateInput{
+    background-color: white;
+    color: black;
+}

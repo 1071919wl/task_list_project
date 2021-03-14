@@ -1,17 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import { updateList, fetchList } from '../../actions/list_actions';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {useState } from 'react';
+import { updateList } from '../../actions/list_actions';
+import { useDispatch } from 'react-redux';
+import '../../assets/stylesheets/list.css';
 
 
 const ListEdit = ({listId, setEditSec, setForceUpdate}) => {
 
     const [editInput, setEditInput] = useState('');
     const dispatch = useDispatch();
-    const currentUser = useSelector(state => state.entities.currentUser);
-
-    useEffect(() => {
-        dispatch(fetchList(currentUser.id));
-    },[])
 
     //update list
     const submitUpdateList = () => {
@@ -29,9 +25,9 @@ const ListEdit = ({listId, setEditSec, setForceUpdate}) => {
     }
 
     return(
-        <div>
+        <div className='listUpdateContainer'>
             <div className='listIndvTitle'>
-                <input type='text' value={editInput} onChange={e => setEditInput(e.target.value)} />
+                <input type='text' value={editInput} onChange={e => setEditInput(e.target.value)} className='listUpdateInput' />
             </div>
             <div>
                 <input type='submit' value='Save' className='listDeleteBtn' onClick={() => submitUpdateList()} />
