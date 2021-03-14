@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import NavBar from '../nav/navbar';
+
 
 const Task = ({task}) => {
 

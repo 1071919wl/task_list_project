@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import NavBar from '../nav/navbar';
 import TaskForm from '../task/task_form';
+import ListEdit from './list_edit';
 import ModalContainer from '../modal/modal_container';
 import '../../assets/stylesheets/list.css';
 
@@ -13,6 +14,8 @@ const List = (props) => {
     const [list, setList] = useState('');
     const [task, setTask] = useState(false);
     const [taskModal, setTaskModal] = useState('');
+    const [editSec, setEditSec] = useState(false);
+    
     const allLists = useSelector(state => state.entities.lists);
     const currentUser = useSelector(state => state.entities.currentUser);
     const dispatch = useDispatch();
@@ -99,13 +102,19 @@ const List = (props) => {
                             <li key={list._id} className='listContainer'>
                                 <div className='listItem'>
                                     <div className='listHeadContainer'>
-                                        <div className='listIndvTitle'>
-                                            {list.list}
-                                        </div>
+                                        {!editSec ?
+                                            <div className='listIndvTitle'>
+                                                {list.list}
+                                            </div>
+                                        :
+                                            <ListEdit list={list} />
+                                        }
                                         {/* <input type='submit' value='Edit' onClick={setEditSec(true)} /> */}
                                         <div className='listBtn'>
-                                            <input type='submit' value='Edit' className='listEditBtn' />
-                                            <input type='submit' value='Delete' className='listDeleteBtn' onClick={() => removeList(list._id)} />
+                                            <div>
+                                                <input type='submit' value='Edit' className='listEditBtn' onClick={() => setEditSec(true)} />
+                                                <input type='submit' value='Delete' className='listDeleteBtn' onClick={() => removeList(list._id)} />
+                                            </div>
                                         </div>
                                     </div>
 
