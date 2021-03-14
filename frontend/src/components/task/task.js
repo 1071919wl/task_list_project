@@ -1,11 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import NavBar from '../nav/navbar';
 
-const Task = (props) => {
+const Task = ({task}) => {
+
+    // useEffect(() => {
+    //     console.log(task)
+    // },[])
 
     return(
         <div>
-            This is the task Page
+            {task.task}
+            {task.description}
+            {task.status ? "Complete" : "Incomplete"}
         </div>
     )
 }

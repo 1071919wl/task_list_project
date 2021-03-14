@@ -4,7 +4,7 @@ import { postTask } from '../../actions/task_actions';
 // import { fetchList } from '../../actions/list_actions';
 import '../../assets/stylesheets/task.css';
 
-const TaskForm = ({list, onChange}) => {
+const TaskForm = ({list, onChange, scrollToBottom}) => {
 
     const [task, setTask] = useState('');
     const [description, setDescription] = useState('');
@@ -30,11 +30,13 @@ const TaskForm = ({list, onChange}) => {
                 onChange();
                 setTask('');
                 setDescription('');
+                scrollToBottom();
 
             });
         }
     }
 
+    
     return(
         <div>
             <form onSubmit={submitTask} className='taskForm'>

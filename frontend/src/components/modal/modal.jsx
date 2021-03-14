@@ -1,9 +1,9 @@
 import React from 'react';
 import '../../assets/stylesheets/modal.css';
-// import RequestContainer from '../request/request_container';
+import Task from '../task/task';
 
 
-const Modal = ({modal, closeModal}) => {
+const Modal = ({modal, closeModal, task}) => {
   if (!modal) {
     return null;
   }
@@ -11,8 +11,8 @@ const Modal = ({modal, closeModal}) => {
   let component;
   
   switch (modal) {
-    case 'request':
-    //   component = <RequestContainer />;
+    case 'task':
+      component = <Task task={task}/>;
       break;
     default:
       return null;

@@ -1,18 +1,19 @@
 import React, {useState, useEffect, useRef} from 'react';
 import NavBar from '../nav/navbar';
 import TaskForm from '../task/task_form';
+import ModalContainer from '../modal/modal_container';
 import '../../assets/stylesheets/list.css';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { postList, fetchList, updateList, deleteList, clearLists } from '../../actions/list_actions';
-
+import { openModal } from '../../actions/modal_actions';
 
 const List = (props) => {
 
     const [list, setList] = useState('');
     const [task, setTask] = useState(false);
-    //!! const taskContainer = userRef(inputRef.current.focus());
-    const didUpdate = useRef(false);
+    const [taskModal, setTaskModal] = useState('');
+    //! const didUpdate = useRef(false);
     const allLists = useSelector(state => state.entities.lists);
     const currentUser = useSelector(state => state.entities.currentUser);
     const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const List = (props) => {
     //componentDidMount and componentDidUpdate
     useEffect(() => {
         dispatch(fetchList(currentUser.id))
-        didUpdate.current = false;
+        //! didUpdate.current = false;
         setTask(false);
     }, [task]);
 
@@ -58,12 +59,19 @@ const List = (props) => {
 
     }
 
-    //!! const scrollToBottom = () => {
-    //     let elmnt = document.getElementById("end_contact");
-    //     elmnt.scrollIntoView({
-    //         behavior: 'smooth'
-    //     });
-    // };
+
+    const bottomRef = useRef();
+    const scrollToBottom = () => {
+        // bottomRef.current.scrollIntoView({
+        // behavior: "smooth",
+        // block: "start",
+        // });
+    };
+
+    const taskModals = ( task ) => {
+        setTaskModal(task);
+        dispatch(openModal('task'))
+    }
 
     return(
         <div className='listContainer'>
@@ -78,7 +86,7 @@ const List = (props) => {
                     </div>
                     <div>
                         <label className="ques_button_err">
-                            <input type='submit' className="submit-question-button" value='Save'/>
+                            <input type='submit' className="submit-question-button" value='Save' />
                         </label>
                     </div>
                 </form>
@@ -98,16 +106,18 @@ const List = (props) => {
                                         </div>
                                         {/* <input type='submit' value='Edit' onClick={setEditSec(true)} /> */}
                                         <div className='listBtn'>
-                                            <input type='submit' value='Edit' className='listEditBtn' onClick={() => console.log('edit')} />
+                                            <input type='submit' value='Edit' className='listEditBtn' />
                                             <input type='submit' value='Delete' className='listDeleteBtn' onClick={() => removeList(list._id)} />
                                         </div>
                                     </div>
 
-                                    <div className='taskContainer' useRef={taskScroll}>
+                                    <div className='taskContainer' ref={bottomRef}>
                                         {list.tasks.map((task) => {
                                             return (
                                                 <div key={task._id} className='taskIndvTitle'>
-                                                    {task.task}
+                                                    <ModalContainer task={taskModal}/>
+                                                    <div onClick={() => taskModals(task)} >{task.task}</div>
+                                                    {/* <div ref={bottomRef} className="list-bottom"></div> */}
                                                 </div>
                                             )
                                         })}
@@ -115,7 +125,7 @@ const List = (props) => {
                                 </div>
                                 
                                 <div>
-                                    <TaskForm list={list} currentUser={currentUser} onChange={setTask}/>
+                                    <TaskForm list={list} currentUser={currentUser} onChange={setTask} scrollToBottom={scrollToBottom}/>
                                 </div>
 
                             </li>
