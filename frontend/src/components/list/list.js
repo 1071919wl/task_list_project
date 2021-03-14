@@ -16,7 +16,8 @@ const List = (props) => {
     const [taskModal, setTaskModal] = useState('');
     const [editSec, setEditSec] = useState('');
     //!test
-    const [update, setUpdate] = useState(false);
+    // const [update, setUpdate] = useState(false);
+    const [forceUpdate,setForceUpdate] = useState(false)
     //!test
     
     const allLists = useSelector(state => state.entities.lists);
@@ -30,10 +31,11 @@ const List = (props) => {
     }, [task]);
 
     //!test
-    // useEffect(() => {
-    //     dispatch(fetchList(currentUser.id));
-    //     setUpdate(false);
-    // },[update])
+    useEffect(() => {
+        dispatch(fetchList(currentUser.id));
+        setForceUpdate(false);
+        setEditSec('');
+    },[forceUpdate])
     //!test
 
     // componentWillUnmount list on logout
@@ -121,7 +123,7 @@ const List = (props) => {
                                         <div>
                                             {editSec === list._id ? 
                                                 <div>
-                                                    <ListEdit listId={editSec} setEditSec={setEditSec} setUpdate={setUpdate}/>
+                                                    <ListEdit listId={editSec} setEditSec={setEditSec} setForceUpdate={setForceUpdate}/>
                                                 </div>
                                             :
                                             <div className='listAndBtn'>

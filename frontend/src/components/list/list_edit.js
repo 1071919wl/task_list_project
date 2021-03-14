@@ -3,17 +3,15 @@ import { updateList, fetchList } from '../../actions/list_actions';
 import { useSelector, useDispatch } from 'react-redux';
 
 
-const ListEdit = ({listId, setEditSec, setUpdate}) => {
+const ListEdit = ({listId, setEditSec, setForceUpdate}) => {
 
     const [editInput, setEditInput] = useState('');
-    const [forceUpdate,setForceUpdate] = useState(false)
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.entities.currentUser);
 
-    // useEffect(() => {
-    //     dispatch(fetchList(currentUser.id));
-    //     setForceUpdate(false);
-    // },[forceUpdate])
+    useEffect(() => {
+        dispatch(fetchList(currentUser.id));
+    },[])
 
     //update list
     const submitUpdateList = () => {
@@ -21,16 +19,11 @@ const ListEdit = ({listId, setEditSec, setUpdate}) => {
         let newUpdate = {
             list: editInput
         };
-
         if(editInput === ""){
             alert('Please provide a title');
         }else{
             dispatch(updateList(listId, newUpdate)).then((res) => {
-                // dispatch(fetchList(currentUser.id));
-                setEditInput('');
-                //!test
-                setUpdate(true);
-                //!test
+                setForceUpdate(true);
             });
         }
     }
