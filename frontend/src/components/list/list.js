@@ -18,7 +18,7 @@ const List = (props) => {
     const [forceUpdate,setForceUpdate] = useState(false)
     
     const allLists = useSelector(state => state.entities.lists);
-    const currentUser = useSelector(state => state.entities.currentUser);
+    const currentUser = useSelector(state => state.session.user);
     const dispatch = useDispatch();
 
     //componentDidMount and componentDidUpdate

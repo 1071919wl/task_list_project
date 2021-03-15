@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {useState} from 'react';
+import { useDispatch } from 'react-redux';
 import { postTask } from '../../actions/task_actions';
 // import { fetchList } from '../../actions/list_actions';
 import '../../assets/stylesheets/task.css';

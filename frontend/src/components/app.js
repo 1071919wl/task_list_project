@@ -1,6 +1,6 @@
 import React from 'react';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 // import NavBarContainer from './nav/navbar_container';
 import LoginForm from './session/login_form';
 import SignupForm from './session/signup_form';
@@ -14,8 +14,6 @@ const App = () => (
       <AuthRoute exact path="/login" component={LoginForm} />
       <AuthRoute exact path="/signup" component={SignupForm} />
       <ProtectedRoute exact path="/" component={List} />
-
-      {/* <Route exact path="/admin-login" component={LoginFormContainer} /> */}
     </Switch>
   </div>
 );

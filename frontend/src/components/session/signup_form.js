@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { withRouter } from 'react-router-dom';
 import '../../assets/stylesheets/login.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signup } from '../../actions/session_actions';
 import { Link } from 'react-router-dom';
 

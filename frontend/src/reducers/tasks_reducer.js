@@ -1,4 +1,4 @@
-import { RECEIVE_TASKS, RECEIVE_TASK, REMOVE_TASK, RECEIVE_COMMENT, REMOVE_COMMENT } from "../actions/task_actions";
+import { RECEIVE_TASKS, RECEIVE_TASK, REMOVE_TASK, RECEIVE_COMMENT } from "../actions/task_actions";
 
 
 

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { withRouter } from 'react-router-dom';
 import '../../assets/stylesheets/login.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { login } from '../../actions/session_actions';
 import { Link } from 'react-router-dom'
 
@@ -11,11 +11,7 @@ const LoginForm = (props) => {
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
 
-
-    // useEffect(() => {
-    //     props.removeErrors();
-    // },[])
-
+    //user login submit
     function sendMessage(e){
         e.preventDefault();
 
@@ -23,7 +19,15 @@ const LoginForm = (props) => {
             username: username,
             password: password
         };
+        dispatch(login(user))
+    }
 
+    //demouser login credentials
+    function demoUser(){
+        const user = {
+            username: 'William Leung',
+            password: '123456'
+        };
         dispatch(login(user))
     }
 
@@ -69,6 +73,7 @@ const LoginForm = (props) => {
                             <Link to={`/signup` } ><button className='session_change'>Register</button></Link>
                         </div>
                     </form>
+                    <button type="submit" value="Demo as William Leung" className='William_Leung' onClick={() => demoUser()}>Demo as William Leung</button>
                     <div className='error_message'>
                     </div>
                     
