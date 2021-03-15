@@ -16,8 +16,8 @@ const Task = ({task}) => {
     //initialize state with boolean from prop. Task component will take over from there.
     //fetches task information
     useEffect(() => {
-        setTaskStatus(task.status)
-        dispatch(fetchTask(task._id))
+        setTaskStatus(task.status);
+        dispatch(fetchTask(task._id));
     },[])
 
 
@@ -43,9 +43,10 @@ const Task = ({task}) => {
 
     //delete comment on buttton click
     const handleCommentDel = (commentId) => {
-        console.log('cID',commentId)
-        console.log('tID',task._id)
-        dispatch(deleteComment(task._id, commentId));
+        dispatch(deleteComment(task._id, commentId)).then(() => {
+            // dispatch(fetchList(currentUser.id));;
+            dispatch(fetchTask(task._id))
+        })
     }
 
     return(

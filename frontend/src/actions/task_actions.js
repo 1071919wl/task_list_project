@@ -98,8 +98,8 @@ export const updateComment = (commentId, commentUpdates) => dispatch =>{
         // .catch(err => dispatch(receiveListErrors(err.response.data)))
 }
 
-export const deleteComment = (commentId) => dispatch => {
-    return TasksAPIUtil.deleteComment(commentId)
+export const deleteComment = (taskId, commentId) => dispatch => {
+    return TasksAPIUtil.deleteComment(taskId, commentId)
         .then( res => { dispatch(removeComment(res.data)) })
         // .catch(err => dispatch(receiveListErrors(err.response.data)))
 }

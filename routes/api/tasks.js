@@ -126,30 +126,36 @@ router.patch("/:id/comments/:commentId", passport.authenticate('jwt',{session:fa
 //deleting a comment from a task
 router.delete("/:id/comments/:commentId", passport.authenticate('jwt',{session:false}), async (req, res) => {
     let task = await Task.findById(req.params.id);
-    // let comment = await task.comments._id(req.params.commentId)
-    // let comment = req.params.commentId
-    console.log('task',req.params.id)
-    console.log('task',req.params.commentId)
-    
-
-    if(task) {
-
-        for(let i = 0; i < task.comments.length; i ++){
-            if ( comment._id === req.params.commentId){
-                console.log('comment', comment)
-                // comment.remove();
-            }
-        }
+    let comment = await task.comments.id(req.params.commentId)
 
 
-        // task.comments.id(req.params.commentId).remove();
+    // if(task ) {
+    //     // console.log(typeof task.comments[0]._id) //object
+    //     // console.log(typeof req.params.commentId) //string
+    //     for(let i = 0; i < task.comments.length; i ++){
+    //         if ( task.comments[i]._id.toString() === req.params.commentId){
+    //             // console.log('@@@@@@@@@comment@@@', task.comments[i])
+    //             task.comments[i].remove();
+    //         }
+    //     }
+    //     // task.comments.id(req.params.commentId).remove();
+    //     task.save(function (err) {
+    //         res.json(task)
+    //         // res.json(comment)
+    //     })
+    // } else {
+    //     res.json("task does not exist.")
+    // }
+
+    //using mongoose built in '.id' over above workaround
+    if(task && comment) {
+        task.comments.id(req.params.commentId).remove();
         task.save(function (err) {
-            res.json(task)
-            // res.json(comment)
-        })
+            res.json(comment)
+        })        
         
     } else {
-        res.json("task does not exist.")
+        res.json("task and/or comment does not exist.")
     }
 })
 
