@@ -92,8 +92,8 @@ export const postComment = (taskId, newComment) => dispatch => {
         // .catch(err => dispatch(receiveListErrors(err.response.data)))
 }
 
-export const updateComment = (commentId, commentUpdates) => dispatch =>{
-    return TasksAPIUtil.updateComment(commentId, commentUpdates)
+export const updateComment = (taskId, commentId, commentUpdates) => dispatch =>{
+    return TasksAPIUtil.updateComment(taskId, commentId, commentUpdates)
         .then( res => { dispatch(receiveComment(res.data))})
         // .catch(err => dispatch(receiveListErrors(err.response.data)))
 }

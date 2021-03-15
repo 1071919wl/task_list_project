@@ -1,13 +1,17 @@
 import Comment from '../comment/comment';
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateTask, fetchTask, deleteComment } from '../../actions/task_actions';
+import { updateTask, fetchTask, deleteComment, deleteTask } from '../../actions/task_actions';
 import { fetchList } from '../../actions/list_actions';
+import { closeModal } from '../../actions/modal_actions';
+import CommentEdit from '../comment/comment_edit';
 import '../../assets/stylesheets/task.scss';
 
 const Task = ({task}) => {
 
     const [taskStatus, setTaskStatus] = useState(true);
+    const [commentUpdate, setCommentUpdate] = useState('');
+    const [forceUpdate,setForceUpdate] = useState(false)
 
     const currentUser = useSelector(state => state.entities.currentUser);
     const stateComments = useSelector(state => state.entities.tasks.comments);
@@ -19,6 +23,12 @@ const Task = ({task}) => {
         setTaskStatus(task.status);
         dispatch(fetchTask(task._id));
     },[])
+
+    useEffect(() => {
+        dispatch(fetchTask(task._id));
+        setForceUpdate(false);
+        setCommentUpdate('');
+    },[forceUpdate])
 
 
     //toggles task status boolean
@@ -44,15 +54,27 @@ const Task = ({task}) => {
     //delete comment on buttton click
     const handleCommentDel = (commentId) => {
         dispatch(deleteComment(task._id, commentId)).then(() => {
-            // dispatch(fetchList(currentUser.id));;
             dispatch(fetchTask(task._id))
         })
     }
+
+    //delete task on buttton click
+    
+    const handleTaskDel = (taskId) => {
+        dispatch(deleteTask(taskId)).then(() => {
+            dispatch(fetchList(currentUser.id));
+            dispatch(closeModal());
+        })
+    }
+    
 
     return(
         <div>
             <div className='taskTitleContainer'>
                 <h1>{task.task}</h1>
+            </div>
+            <div className='taskDeleteContainer'>
+                <button type='submit' className='taskDeleteBtn' onClick={()=>(handleTaskDel(task._id))}>Delete</button>
             </div>
             <div className='descriptStatusContainer'>
                 <div className="descriptionContainer">
@@ -63,24 +85,43 @@ const Task = ({task}) => {
                 </div>
                 <div className='toggleContainer'>
                     <div>
-                        <button type='submit' onClick={() => statusToggle()}>
+                        <button type='submit' onClick={() => statusToggle()} >
                             {taskStatus ? 'Reopen' : 'Mark as complete'}
                         </button>
                     </div>
-                    <div>
+                    <div className='taskHeaderSec'>
                         {taskStatus ? <div className='finish'>Complete &#10003; </div> : <div className='unfinish'>Incomplete &#10007;</div>}
                     </div>
                 </div>
             </div>
-            <div>
+            <div className='notesContainer'>
+                <h1>Notes:</h1>
                 {stateComments?.map((comment) => {
                     return(
-                        <div key={comment._id}>
-                            <div>
-                                {comment.comment}
-                            </div>
-                            <div>
-                                <button type='submit' onClick={() => handleCommentDel(comment._id)}>Remove</button>
+                        <div key={comment._id} className='individualCommentContainer'>
+                            {commentUpdate === comment._id ? 
+                                <div>
+                                    <CommentEdit commentObj={comment} taskObj={task} setForceUpdate={setForceUpdate}/>
+                                </div>
+                            
+                            :
+                                <div className='list'>
+                                    {comment.comment}
+                                </div>
+                            }
+                            <div className='commentBtnContainer'>
+                                {commentUpdate !== comment._id ?
+                                    <div>
+                                        <button type='submit' onClick={() => setCommentUpdate(comment._id)}>Update</button>
+                                    </div>
+                                :
+                                    <div>
+                                        <button type='submit' onClick={() => setCommentUpdate('')}>Cancel</button>
+                                    </div>
+                                }
+                                <div>
+                                    <button type='submit' onClick={() => handleCommentDel(comment._id)}>Remove</button>
+                                </div>
                             </div>
                         </div>
                     )

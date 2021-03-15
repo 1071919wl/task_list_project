@@ -201,13 +201,22 @@
     padding: 10px;
     font-size: 18px;
 }
+
+.actualTitle{
+     width: 400px;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+}
 .taskIndvTitle:hover{
     background-color: lightgray;
+
 }
 
 .listIndivid{
     display:flex;
     justify-content: space-between;
+   
 }
 
 .listIndivid:hover{
@@ -230,3 +239,4 @@
     background-color: white;
     color: black;
 }
+

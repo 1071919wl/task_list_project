@@ -27,11 +27,13 @@ const List = (props) => {
         setTask(false);
     }, [task]);
 
+    //forceupdate for changes made in chile component
     useEffect(() => {
         dispatch(fetchList(currentUser.id));
         setForceUpdate(false);
         setEditSec('');
     },[forceUpdate])
+
 
     // componentWillUnmount list on logout
     useEffect(() => {
@@ -63,7 +65,6 @@ const List = (props) => {
         dispatch(deleteList(listId)).then(()=>{
             dispatch(fetchList(currentUser.id));
         })
-
     }
 
 
@@ -143,11 +144,13 @@ const List = (props) => {
                                                 <div key={task._id} className='taskIndvTitle'>
                                                     <ModalContainer task={taskModal}/>
                                                     <div onClick={() => taskModals(task)} className='listIndivid'>
-                                                        <div>
+                                                        <div className='actualTitle'>
                                                             {task.task}
                                                         </div>
-                                                        <div>
-                                                            {task.status ? <div className='finish'> &#10003; </div> : <div className='unfinish'>&#10007;</div>}
+                                                        <div className='taskDeleteSec'>
+                                                            <div>
+                                                                {task.status ? <div className='finish'> &#10003; </div> : <div className='unfinish'>&#10007;</div>}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     {/* <div ref={bottomRef} className="list-bottom"></div> */}
