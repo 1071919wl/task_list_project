@@ -5,8 +5,8 @@ export const fetchTasks = () => {
     return axios.get("/api/lists")
 };
 
-export const fetchTask = (userId) => {
-    return axios.get(`/api/tasks/${userId}`)
+export const fetchTask = (taskId) => {
+    return axios.get(`/api/tasks/${taskId}`)
 }
 
 export const postTask = (newTask) => {

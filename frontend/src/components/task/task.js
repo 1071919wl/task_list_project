@@ -1,20 +1,25 @@
+import Comment from '../comment/comment';
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import '../../assets/stylesheets/task.scss';
-
-import { updateTask } from '../../actions/task_actions';
+import { updateTask, fetchTask, deleteComment } from '../../actions/task_actions';
 import { fetchList } from '../../actions/list_actions';
+import '../../assets/stylesheets/task.scss';
 
 const Task = ({task}) => {
 
     const [taskStatus, setTaskStatus] = useState(true);
+
     const currentUser = useSelector(state => state.entities.currentUser);
+    const stateComments = useSelector(state => state.entities.tasks.comments);
     const dispatch = useDispatch();
 
     //initialize state with boolean from prop. Task component will take over from there.
+    //fetches task information
     useEffect(() => {
         setTaskStatus(task.status)
+        dispatch(fetchTask(task._id))
     },[])
+
 
     //toggles task status boolean
     const statusToggle = () => {
@@ -34,6 +39,13 @@ const Task = ({task}) => {
             setTaskStatus(updateStatus);
             dispatch(fetchList(currentUser.id));
         });
+    }
+
+    //delete comment on buttton click
+    const handleCommentDel = (commentId) => {
+        console.log('cID',commentId)
+        console.log('tID',task._id)
+        dispatch(deleteComment(task._id, commentId));
     }
 
     return(
@@ -59,6 +71,21 @@ const Task = ({task}) => {
                     </div>
                 </div>
             </div>
+            <div>
+                {stateComments?.map((comment) => {
+                    return(
+                        <div key={comment._id}>
+                            <div>
+                                {comment.comment}
+                            </div>
+                            <div>
+                                <button type='submit' onClick={() => handleCommentDel(comment._id)}>Remove</button>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+            <Comment task={task} />
         </div>
     )
 }

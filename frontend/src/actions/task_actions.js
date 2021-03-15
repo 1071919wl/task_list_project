@@ -50,8 +50,8 @@ const removeComment = (comment) => {
 }
 //thunk actions
 
-export const fetchTask = (userId) => (dispatch) => {
-    return TasksAPIUtil.fetchTask(userId)
+export const fetchTask = (taskId) => (dispatch) => {
+    return TasksAPIUtil.fetchTask(taskId)
         .then(res =>  dispatch(receiveTask(res.data)))
         // .catch(err => (dispatch(receiveQuestionErrors(err))))
 }
@@ -86,8 +86,8 @@ export const deleteTask = (taskId) => dispatch => {
 
 
 //COMMENT THUNK ACTION
-export const postComment = (newComment) => dispatch => {
-    return TasksAPIUtil.postComment(newComment)
+export const postComment = (taskId, newComment) => dispatch => {
+    return TasksAPIUtil.postComment(taskId, newComment)
         .then(res => dispatch(receiveComment(res.data)))
         // .catch(err => dispatch(receiveListErrors(err.response.data)))
 }

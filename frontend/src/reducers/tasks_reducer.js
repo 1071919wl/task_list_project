@@ -13,6 +13,10 @@ const TasksReducer = (state={}, action) =>  {
             // newState['hello'] = action.list
             return action.task
             // return newState
+        case RECEIVE_COMMENT:
+            // newState['hello'] = action.list
+            return action.comment
+            // return newState
         case REMOVE_TASK: 
             let taskId = action.task._id
             delete newState[taskId]
