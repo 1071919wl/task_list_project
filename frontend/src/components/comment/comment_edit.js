@@ -15,7 +15,7 @@ const CommentEdit = ({commentObj, taskObj, setForceUpdate}) => {
         let newUpdate = {
             comment: newComment
         };
-        console.log(taskObj)
+
 
         if(newComment === ""){
             alert("Update can't be blank");
