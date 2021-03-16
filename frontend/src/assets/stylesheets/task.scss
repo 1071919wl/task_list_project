@@ -57,7 +57,7 @@
     outline: 1px solid black;
     height: 23vw;
     // height: 50%;
-    // overflow-y: auto;
+    overflow-y: auto;
 
     h1{
         font-size: 25px;
@@ -72,6 +72,7 @@
         outline: 1px solid lightgray;
         // color: white;
         background-color: rgba(124, 92, 52, 0.692);
+        margin-bottom: 5px;
 
 
         .commentBtnContainer{
@@ -97,5 +98,40 @@
     .commentInputSec{
         background-color: lightgray;
         width: 700px;
+    }
+}
+
+@media only screen and (max-width:620px) {
+    .notesContainer {
+        height: 65vw;
+    }
+
+    .task_input1{
+        width: 130px;
+    }
+
+    .commentBtnContainer{
+        flex-direction: column;
+    }
+
+    .list{
+        width: 215px !important;
+
+    }
+
+    .toggleContainer {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .doneButton {
+        margin-right: 0px !important;
+    }
+    
+    .taskHeaderSec{
+        font-size: 12px;
+    }
+    .descriptionContainer{
+        width: 210px;
+
     }
 }

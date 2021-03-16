@@ -240,3 +240,22 @@
     color: black;
 }
 
+@media only screen and (max-width:620px) {
+
+    .listItem {
+        width: 250px;
+        height: 120vw;
+    }
+
+    .actualTitle {
+        /* font-size: 15px;
+        color: red; */
+    }
+
+    .listIndvTitle {
+        width: 140px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

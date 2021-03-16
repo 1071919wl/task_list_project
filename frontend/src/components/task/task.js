@@ -85,17 +85,18 @@ const Task = ({task}) => {
                 </div>
                 <div className='toggleContainer'>
                     <div>
-                        <button type='submit' onClick={() => statusToggle()} >
-                            {taskStatus ? 'Reopen' : 'Mark as complete'}
+                        <button type='submit' onClick={() => statusToggle()} className='doneButton' >
+                            {taskStatus ? 'Reopen' : 'Mark as Done'}
                         </button>
                     </div>
                     <div className='taskHeaderSec'>
-                        {taskStatus ? <div className='finish'>Complete &#10003; </div> : <div className='unfinish'>Incomplete &#10007;</div>}
+                        {taskStatus ? <div className='finish'>Done &#10003; </div> : <div className='unfinish'>In progress &#10007;</div>}
                     </div>
                 </div>
             </div>
             <div className='notesContainer'>
                 <h1>Notes:</h1>
+                <ul>
                 {stateComments?.map((comment) => {
                     return(
                         <div key={comment._id} className='individualCommentContainer'>
@@ -126,6 +127,7 @@ const Task = ({task}) => {
                         </div>
                     )
                 })}
+                </ul>
             </div>
             <Comment task={task} />
         </div>
