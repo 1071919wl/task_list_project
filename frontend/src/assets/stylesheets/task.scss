@@ -6,6 +6,8 @@
     align-items: center;
     font-family: 'Allura', cursive;
     padding: 10px;
+
+    
 }
 
 .taskDeleteContainer{
@@ -106,8 +108,9 @@
         height: 65vw;
     }
 
+
     .task_input1{
-        width: 130px;
+        width: 155px;
     }
 
     .commentBtnContainer{
@@ -134,4 +137,10 @@
         width: 210px;
 
     }
+
+    .descriptionInfo {
+        word-wrap: break-word;
+
+    }
 }
+

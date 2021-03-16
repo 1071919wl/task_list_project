@@ -21,6 +21,8 @@
     padding: 10px;
 }
 
+
+
 .submitTaskButton{
     background-color: rgb(33, 161, 155);
     border-radius: 5px;
@@ -48,6 +50,13 @@
     font-size: 16px;
 }
 
+.task_input_comment{
+    background-color: rgb(255, 234, 209);
+    margin-left: 5px;
+    width: 420px;
+    font-size: 16px;
+}
+
 @media only screen and (max-width:620px) {
 
     .taskForm {
@@ -60,6 +69,10 @@
 
     .task_input2{
         width:140px;
+    }
+    .task_input_comment {
+        width: 220px;
+
     }
 
 }

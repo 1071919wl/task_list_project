@@ -29,7 +29,7 @@ const Comment = ({task}) => {
             <form onSubmit={submitComment} className='taskForm'>
                 <div className='taskInputContainer'>
                     <label className='taskInput'>Add a note:
-                        <input type='text' value={comment} onChange={e => setComment(e.target.value)} className='task_input1' />
+                        <input type='text' value={comment} onChange={e => setComment(e.target.value)} className='task_input_comment' />
                     </label>
                 </div>
                 <div>

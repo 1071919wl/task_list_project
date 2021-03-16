@@ -71,7 +71,7 @@ const Task = ({task}) => {
     return(
         <div>
             <div className='taskTitleContainer'>
-                <h1>{task.task}</h1>
+                <h1 className='taskTitleh1'>{task.task}</h1>
             </div>
             <div className='taskDeleteContainer'>
                 <button type='submit' className='taskDeleteBtn' onClick={()=>(handleTaskDel(task._id))}>Delete</button>
@@ -79,7 +79,7 @@ const Task = ({task}) => {
             <div className='descriptStatusContainer'>
                 <div className="descriptionContainer">
                     <label>Description:</label>
-                    <div>
+                    <div className='descriptionInfo'>
                         {task.description}
                     </div>
                 </div>
