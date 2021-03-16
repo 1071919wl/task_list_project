@@ -2,7 +2,6 @@
 Hi there! 
 
 [Trustero Todo App](https://trustero-todo-app.herokuapp.com/) 
-* APP CURRENTLY ISN'T WORKING ON HEROKU AT THE MOMENT. IN THE MEANTIME PLEASE RUN ON LOCAL. SORRY!
 
 ### Features
 * Navigate to root directoy and "npm install" package.json of our server directory
