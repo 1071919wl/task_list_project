@@ -9,6 +9,8 @@ export const REMOVE_TASK = "REMOVE_TASK";
 export const RECEIVE_COMMENT = "RECEIVE_COMMENT";
 export const REMOVE_COMMENT = "REMOVE_COMMENT";
 
+export const CLEAR_COMMENTS = 'CLEAR_COMMENTS';
+
 
 //action 
 //! once thunk action returns with results, actions sends to store
@@ -35,6 +37,8 @@ const removeTask = (task) => {
 }
 
 
+
+
 const receiveComment = (comment) => {
     return {
         type: RECEIVE_COMMENT,
@@ -48,6 +52,14 @@ const removeComment = (comment) => {
         comment
     }
 }
+
+
+export const clearComments = () => {
+    return {
+        type: CLEAR_COMMENTS,
+    }
+}
+
 //thunk actions
 
 export const fetchTask = (taskId) => (dispatch) => {

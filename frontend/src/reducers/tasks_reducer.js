@@ -1,4 +1,4 @@
-import { RECEIVE_TASKS, RECEIVE_TASK, REMOVE_TASK, RECEIVE_COMMENT } from "../actions/task_actions";
+import { RECEIVE_TASKS, RECEIVE_TASK, REMOVE_TASK, RECEIVE_COMMENT,CLEAR_COMMENTS } from "../actions/task_actions";
 
 
 
@@ -21,6 +21,8 @@ const TasksReducer = (state={}, action) =>  {
             let taskId = action.task._id
             delete newState[taskId]
             return newState
+        case CLEAR_COMMENTS:
+            return [];        
         default:
             return state;
     }

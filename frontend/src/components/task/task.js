@@ -1,7 +1,7 @@
 import Comment from '../comment/comment';
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateTask, fetchTask, deleteComment, deleteTask } from '../../actions/task_actions';
+import { updateTask, fetchTask, deleteComment, deleteTask, clearComments } from '../../actions/task_actions';
 import { fetchList } from '../../actions/list_actions';
 import { closeModal } from '../../actions/modal_actions';
 import CommentEdit from '../comment/comment_edit';
@@ -30,6 +30,12 @@ const Task = ({task}) => {
         setCommentUpdate('');
     },[forceUpdate])
 
+
+    useEffect(() => {
+        return() => {
+            dispatch(clearComments());
+        }
+    },[])
 
     //toggles task status boolean
     const statusToggle = () => {

@@ -37,7 +37,9 @@ const List = (props) => {
 
     // componentWillUnmount list on logout
     useEffect(() => {
-        dispatch(clearLists())
+        return() => {
+            dispatch(clearLists());
+        }
     },[]);
 
 
