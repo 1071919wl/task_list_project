@@ -24,15 +24,16 @@ const List = (props) => {
     //componentDidMount and componentDidUpdate
     useEffect(() => {
         dispatch(fetchList(currentUser.id))
-        setTask(false);
-    }, [task]);
+        // setTask(false);
+    // }, [task]);
+    }, []);
 
     //forceupdate for changes made in chile component
-    useEffect(() => {
-        dispatch(fetchList(currentUser.id));
-        setForceUpdate(false);
-        setEditSec('');
-    },[forceUpdate])
+    // useEffect(() => {
+    //     dispatch(fetchList(currentUser.id));
+    //     setForceUpdate(false);
+    //     setEditSec('');
+    // },[forceUpdate])
 
 
     // componentWillUnmount list on logout
@@ -90,9 +91,12 @@ const List = (props) => {
         setEditSec(list._id)
     }
 
+    
+
     return(
         <div className='listContainer'>
             <NavBar />
+            <ModalContainer task={taskModal}/>
             <div>
                 <form onSubmit={submitList} className='listForm'>
                     <div>
@@ -144,7 +148,6 @@ const List = (props) => {
                                         {list.tasks.map((task) => {
                                             return (
                                                 <div key={task._id} className='taskIndvTitle'>
-                                                    <ModalContainer task={taskModal}/>
                                                     <div onClick={() => taskModals(task)} className='listIndivid'>
                                                         <div className='actualTitle'>
                                                             {task.task}

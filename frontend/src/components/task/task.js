@@ -1,7 +1,7 @@
 import Comment from '../comment/comment';
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateTask, fetchTask, deleteComment, deleteTask, clearComments } from '../../actions/task_actions';
+import { updateTask, fetchTask, deleteComment, deleteTask, clearComments, fetchComments } from '../../actions/task_actions';
 import { fetchList } from '../../actions/list_actions';
 import { closeModal } from '../../actions/modal_actions';
 import CommentEdit from '../comment/comment_edit';
@@ -20,17 +20,20 @@ const Task = ({task}) => {
     //initialize state with boolean from prop. Task component will take over from there.
     //fetches task information
     useEffect(() => {
-        setTaskStatus(task.status);
+        //! setTaskStatus(task.status);
         dispatch(fetchTask(task._id));
+        console.log('fetch comments')
+        // dispatch(fetchComments(task._id));
+
     },[])
 
     useEffect(() => {
-        dispatch(fetchTask(task._id));
+        //! dispatch(fetchTask(task._id));
         setForceUpdate(false);
         setCommentUpdate('');
     },[forceUpdate])
 
-
+    //didUnmount comments
     useEffect(() => {
         return() => {
             dispatch(clearComments());
@@ -65,7 +68,6 @@ const Task = ({task}) => {
     }
 
     //delete task on buttton click
-    
     const handleTaskDel = (taskId) => {
         dispatch(deleteTask(taskId)).then(() => {
             dispatch(fetchList(currentUser.id));
@@ -73,7 +75,7 @@ const Task = ({task}) => {
         })
     }
     
-
+    
     return(
         <div>
             <div className='taskTitleContainer'>
@@ -103,7 +105,8 @@ const Task = ({task}) => {
             <div className='notesContainer'>
                 <h1>Notes:</h1>
                 <ul>
-                {stateComments?.map((comment) => {
+                {/* {stateComments?.map((comment) => { */}
+                {task.comments.map((comment) => {
                     return(
                         <div key={comment._id} className='individualCommentContainer'>
                             {commentUpdate === comment._id ? 

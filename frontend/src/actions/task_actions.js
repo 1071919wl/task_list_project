@@ -5,7 +5,7 @@ export const RECEIVE_TASK = "RECEIVE_TASK";
 export const REMOVE_TASK = "REMOVE_TASK";
 // export const RECEIVE_TASK_ERRORS = "RECEIVE_TASK_ERRORS"
 // export const REMOVE_TASK_ERRORS = "REMOVE_TASK_ERRORS";
-
+export const RECEIVE_COMMENTS = "RECEIVE_COMMENTS";
 export const RECEIVE_COMMENT = "RECEIVE_COMMENT";
 export const REMOVE_COMMENT = "REMOVE_COMMENT";
 
@@ -38,6 +38,12 @@ const removeTask = (task) => {
 
 
 
+const receiveComments = (comments) => {
+    return {
+        type: RECEIVE_COMMENTS,
+        comments
+    }
+}
 
 const receiveComment = (comment) => {
     return {
@@ -98,6 +104,14 @@ export const deleteTask = (taskId) => dispatch => {
 
 
 //COMMENT THUNK ACTION
+export const fetchComments = (taskId) => dispatch => {
+    console.log('action', taskId)
+    return TasksAPIUtil.fetchComments(taskId)
+        .then(res => dispatch(receiveComments(res.data)))
+        // .catch(err => dispatch(receiveListErrors(err.response.data)))
+}
+
+
 export const postComment = (taskId, newComment) => dispatch => {
     return TasksAPIUtil.postComment(taskId, newComment)
         .then(res => dispatch(receiveComment(res.data)))

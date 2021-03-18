@@ -22,6 +22,10 @@ export const deleteTask = (taskId) => {
 }
 
 //COMMENTS
+export const fetchComments = (taskId) => {
+    return axios.get(`/api/tasks/${taskId}/comments`)
+};
+
 export const postComment = (taskId, newComment) => {
     return axios.post(`/api/tasks/${taskId}/comments`, newComment)
 }

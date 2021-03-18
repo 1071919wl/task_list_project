@@ -89,6 +89,17 @@ router.delete("/:id", passport.authenticate('jwt',{session:false}), async (req, 
 
 
 //! comments
+
+//retreiving all the comments
+router.get('/:id/comments',(req,res)=>{
+    Task.findById(req.params.id)
+        // .then(task => {console.log(task.comments)})
+        .then(task => {res.json(task.comments)})
+        .catch(err => res.status(404).json(err));
+
+})
+
+
 //creating a comment to a task
 router.post("/:id/comments", passport.authenticate('jwt',{session:false}), async (req, res) => {
     
