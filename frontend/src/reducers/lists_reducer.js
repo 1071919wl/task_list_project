@@ -14,9 +14,16 @@ const ListsReducer = (state={}, action) =>  {
             return action.list
             // return newState
         case REMOVE_LIST: 
+            let res = [];
             let listId = action.list._id
-            delete newState[listId]
-            return newState
+            let arrList = Object.values(newState);
+
+            for(let i = 0; i < arrList.length; i ++){
+                if ( arrList[i]._id !== listId ){
+                    res.push(arrList[i])
+                }
+            }
+            return res;
         case CLEAR_LISTS:
             return [];    
         default:
@@ -25,3 +32,5 @@ const ListsReducer = (state={}, action) =>  {
 }
 
 export default ListsReducer; 
+
+

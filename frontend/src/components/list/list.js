@@ -64,9 +64,7 @@ const List = (props) => {
 
     //deleting a list
     const removeList = (listId) => {
-        dispatch(deleteList(listId)).then(()=>{
-            dispatch(fetchList(currentUser.id));
-        })
+        dispatch(deleteList(listId));
     }
 
 
