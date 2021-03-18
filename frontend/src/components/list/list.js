@@ -93,6 +93,7 @@ const List = (props) => {
     return(
         <div className='listContainer'>
             <NavBar />
+            <ModalContainer task={taskModal}/>
             <div>
                 <form onSubmit={submitList} className='listForm'>
                     <div>
@@ -144,7 +145,6 @@ const List = (props) => {
                                         {list.tasks.map((task) => {
                                             return (
                                                 <div key={task._id} className='taskIndvTitle'>
-                                                    <ModalContainer task={taskModal}/>
                                                     <div onClick={() => taskModals(task)} className='listIndivid'>
                                                         <div className='actualTitle'>
                                                             {task.task}
