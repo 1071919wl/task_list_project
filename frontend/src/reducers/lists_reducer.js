@@ -8,7 +8,11 @@ const ListsReducer = (state={}, action) =>  {
 
     switch (action.type) {
         case RECEIVE_LISTS:
-            return action.lists;
+            let send = Object.values(state);
+            send.push(action.lists)
+            return send;
+
+
         case RECEIVE_LIST:
             // newState['hello'] = action.list
             return action.list

@@ -27,7 +27,7 @@ const List = (props) => {
         setTask(false);
     }, [task]);
 
-    //forceupdate for changes made in chile component
+    //forceupdate for changes made in child component
     useEffect(() => {
         dispatch(fetchList(currentUser.id));
         setForceUpdate(false);
@@ -56,7 +56,6 @@ const List = (props) => {
             alert('Please provide a List title');
         }else{
             dispatch(postList(newList)).then((res) => {
-                dispatch(fetchList(currentUser.id));
                 setList('');
             });
         }

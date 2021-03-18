@@ -67,7 +67,7 @@ export const fetchLists = () => dispatch => {
 
 export const postList = (newList) => dispatch => {
     return ListsAPIUtil.postList(newList)
-        .then(res => dispatch(receiveList(res.data)))
+        .then(res => dispatch(receiveLists(res.data)))
         // .catch(err => dispatch(receiveListErrors(err.response.data)))
 }
 
