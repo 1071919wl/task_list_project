@@ -9,14 +9,24 @@ const ListsReducer = (state={}, action) =>  {
     switch (action.type) {
         case RECEIVE_LISTS:
             return action.lists;
+
         case RECEIVE_LIST:
-            // newState['hello'] = action.list
+            let arrState = Object.values(newState);
+            arrState.push(action.list)
             return action.list
-            // return newState
+            // return arrState;
+
         case REMOVE_LIST: 
+            let res = [];
             let listId = action.list._id
-            delete newState[listId]
-            return newState
+            let arrList = Object.values(newState);
+
+            for(let i = 0; i < arrList.length; i ++){
+                if ( arrList[i]._id !== listId ){
+                    res.push(arrList[i])
+                }
+            }
+            return res;
         case CLEAR_LISTS:
             return [];    
         default:

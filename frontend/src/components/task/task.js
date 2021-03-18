@@ -76,6 +76,7 @@ const Task = ({task}) => {
 
     return(
         <div>
+            {console.log('task rerendered')}
             <div className='taskTitleContainer'>
                 <h1 className='taskTitleh1'>{task.task}</h1>
             </div>

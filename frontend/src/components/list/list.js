@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import NavBar from '../nav/navbar';
 import TaskForm from '../task/task_form';
 import ListEdit from './list_edit';
+import ListItem from './list_item';
 import ModalContainer from '../modal/modal_container';
 import '../../assets/stylesheets/list.css';
 
@@ -64,9 +65,7 @@ const List = (props) => {
 
     //deleting a list
     const removeList = (listId) => {
-        dispatch(deleteList(listId)).then(()=>{
-            dispatch(fetchList(currentUser.id));
-        })
+        dispatch(deleteList(listId))
     }
 
 
@@ -90,6 +89,12 @@ const List = (props) => {
         setEditSec(list._id)
     }
 
+
+    // function MemoizedListItem(list){
+    //     return useMemo(() => {
+    //         return <ListItem key={list._id} list={list}/>
+    //     },[removeList])
+    // }
     return(
         <div className='listContainer'>
             <NavBar />
@@ -127,7 +132,8 @@ const List = (props) => {
                                             :
                                             <div className='listAndBtn'>
                                                 <div className='listIndvTitle'>
-                                                    {list.list}
+                                                    <ListItem key={list._id} list={list} />
+                                                    {/* {list.list} */}
                                                 </div>
                                                 <div className='listBtn'>
                                                     <div>
@@ -140,7 +146,6 @@ const List = (props) => {
                                         </div>
 
                                     </div>
-
                                     <div className='taskContainer' ref={bottomRef}>
                                         {list.tasks.map((task) => {
                                             return (
@@ -180,4 +185,4 @@ const List = (props) => {
     )
 }
 
-export default List;
+export default List

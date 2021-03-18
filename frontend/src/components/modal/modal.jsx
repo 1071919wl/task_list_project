@@ -20,7 +20,7 @@ const Modal = ({modal, closeModal, task}) => {
 // do something similiar to mern searchbar where modal closes when clicked outside
   return (
     <div className="modal-background"  >
-      
+      {console.log('modal rendered')}
       <div className="modal-child" onClick={e => e.stopPropagation()}>
         <div onClick={closeModal} id='modal_exit_button' className="close-x"></div>
         { component }
