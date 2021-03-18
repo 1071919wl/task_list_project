@@ -11,10 +11,9 @@ const ListsReducer = (state={}, action) =>  {
             return action.lists;
 
         case RECEIVE_LIST:
-            let arrState = Object.values(newState);
-            arrState.push(action.list)
-            return action.list
-            // return arrState;
+            let send = Object.values(state);
+            send.push(action.list)
+            return send;
 
         case REMOVE_LIST: 
             let res = [];

@@ -7,7 +7,7 @@ import ModalContainer from '../modal/modal_container';
 import '../../assets/stylesheets/list.css';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { postList, fetchList, deleteList, clearLists } from '../../actions/list_actions';
+import { postList, fetchLists, deleteList, clearLists } from '../../actions/list_actions';
 import { openModal } from '../../actions/modal_actions';
 
 const List = (props) => {
@@ -24,13 +24,13 @@ const List = (props) => {
 
     //componentDidMount and componentDidUpdate
     useEffect(() => {
-        dispatch(fetchList(currentUser.id))
+        dispatch(fetchLists(currentUser.id))
         setTask(false);
     }, [task]);
 
     //forceupdate for changes made in chile component
     useEffect(() => {
-        dispatch(fetchList(currentUser.id));
+        dispatch(fetchLists(currentUser.id));
         setForceUpdate(false);
         setEditSec('');
     },[forceUpdate])
@@ -57,7 +57,7 @@ const List = (props) => {
             alert('Please provide a List title');
         }else{
             dispatch(postList(newList)).then((res) => {
-                dispatch(fetchList(currentUser.id));
+                // dispatch(fetchList(currentUser.id));
                 setList('');
             });
         }
@@ -147,7 +147,7 @@ const List = (props) => {
 
                                     </div>
                                     <div className='taskContainer' ref={bottomRef}>
-                                        {list.tasks.map((task) => {
+                                        {list.tasks?.map((task) => {
                                             return (
                                                 <div key={task._id} className='taskIndvTitle'>
                                                     <div onClick={() => taskModals(task)} className='listIndivid'>

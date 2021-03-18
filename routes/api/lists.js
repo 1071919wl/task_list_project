@@ -9,12 +9,22 @@ const User = require('../../models/User');
 
 
 //retreiving all the lists
-router.get('/',(req,res) => {
+router.get('/:userId',(req,res) => {
     List.find()
-    .populate('tasks')
-    .sort({timestamps:-1})
-    .then(lists => {res.json(lists)})
-    .catch(err => res.status(404).json(err));
+        .populate('tasks')
+        .sort({timestamps:-1})
+        .then(lists => {
+            const listArr = [];
+            lists.forEach(list => {
+                // console.log('list',typeof list.user.toString())
+                // console.log('req.body.user',typeof req.params.id)
+                // console.log( list.user.toString() === req.params.id)
+                if(req.params.userId === list.user.toString()){
+                    listArr.push(list);
+                }
+            })
+            res.json(listArr)
+        })
 });
 
 

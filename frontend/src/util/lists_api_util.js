@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const fetchLists = () => {
-    return axios.get("/api/lists")
+export const fetchLists = (currentUserId) => {
+    return axios.get(`/api/lists/${currentUserId}`)
 };
 
 export const fetchList = (userId) => {

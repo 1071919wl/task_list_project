@@ -59,8 +59,8 @@ export const fetchList = (userId) => (dispatch) => {
         // .catch(err => (dispatch(receiveQuestionErrors(err))))
 }
 
-export const fetchLists = () => dispatch => {
-    return ListsAPIUtil.fetchLists()
+export const fetchLists = (currentUserId) => dispatch => {
+    return ListsAPIUtil.fetchLists(currentUserId)
         .then(res => dispatch(receiveLists(res.data)))
         // .catch(err => dispatch(receiveListErrors(err.response.data)))
 }
