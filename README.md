@@ -1,7 +1,7 @@
 # README
 Hi there! 
 
-[Trustero Todo App](https://trustero-todo-app.herokuapp.com/) 
+[Todo App](https://trustero-todo-app.herokuapp.com/) 
 
 ### Features
 * Navigate to root directoy and "npm install" package.json of our server directory
